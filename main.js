@@ -7,7 +7,7 @@ const toggle = document.querySelector(".toggle");
 
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const months = ["Jan","Feb","Mar", "Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
 toggle.addEventListener("click", (e) => {
   const html = document.querySelector("html");
@@ -32,7 +32,9 @@ function setTime() {
   const ampm = hours >= 12 ? "PM" : "AM";
   hourEl.style.transform = `translate(-50%,-100%) rotate(${scale(hoursForClock,0,12,0,360)}deg)`;
   minuteEl.style.transform = `translate(-50%,-100%) rotate(${scale(minutes,0,60,0,360)}deg)`;
-  secondEl.style.transform = `translate(-50%,-100%) rotate(${scale(seconds,0,60,0,360)}deg)`;
+  const secondsDegrees = scale(seconds, 0, 60, 0, 360);
+  secondEl.style.transition = seconds === 0 ? 'none' : 'transform 0.05s cubic-bezier(0.4, 2.3, 0.3, 1)';
+  secondEl.style.transform = `translate(-50%,-100%) rotate(${secondsDegrees}deg)`;
   timeEl.innerHTML = `${hoursForClock}:${minutes < 10 ? `0${minutes}` : minutes} ${ampm}`;
   dateEl.innerHTML = `${days[day]}, ${months[month]} <span class="circle">${date}</span>`;
 }
